@@ -1,0 +1,16 @@
+body {
+    background-color: lightslategray;
+}
+
+div {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+span {
+    padding-right: 8px;
+}
+
+main {
+    width: 480px;
+}

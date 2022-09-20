@@ -1,0 +1,25 @@
+{
+  "name": "colorchart",
+  "version": "1.0.0",
+  "description": "Simple web page for generating grids of squares filled with different color variations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rick-scheunemann/colorChart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rick-scheunemann/colorChart/issues"
+  },
+  "homepage": "https://github.com/rick-scheunemann/colorChart#readme",
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}

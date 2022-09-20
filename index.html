@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Color Charts</title>
+    <meta name="description"
+        content="Simple web page for generating grids of squares filled with different color variations">
+    <link rel="SHORTCUT ICON" href="./favicon.svg" type="image/x-icon">
+    <meta name="keywords" content="Color Chart">
+    <link rel="stylesheet" type="text/css" href="./index.css" />
+</head>
+
+<body>
+    <div id="header image">
+        <!-- <img id="banner" src="./images/header.png"> -->
+    </div>
+
+    <main>
+        <form id="mainForm">
+            <fieldset>
+                <legend>Options</legend>
+                <div>
+                    <label for="title">Chart Name:</label>
+                    <input type="text" id="title" name="title" required minlength="4" maxlength="64" size="24" placeholder="Name of Color">
+
+                </div>
+            </fieldset>
+
+            <br />
+
+            <fieldset>
+                <legend>Inks</legend>
+                <div>
+                    <span>
+                        <input type="checkbox" id="ink1" name="ink1" checked>
+                        <label for="ink1_Name">Ink 1:</label>
+                        <input type="text" id="ink1_Name" name="ink1_Name" class="inkName" maxlength="24" value="Cyan">
+                    </span><span>
+                        <input type="checkbox" id="ink2" name="ink2" checked>
+                        <label for="ink2_Name">Ink 2:</label>
+                        <input type="text" id="ink2_Name" name="ink2_Name" class="inkName" maxlength="24" value="Magenta">
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        <input type="checkbox" id="ink3" name="ink3" checked>
+                        <label for="ink3_Name">Ink 3:</label>
+                        <input type="text" id="ink3_Name" name="ink3_Name" class="inkName" maxlength="24" value="Yellow">
+                    </span>
+                    <span>
+                        <input type="checkbox" id="ink4" name="ink4" checked>
+                        <label for="ink4_Name">Ink 4:</label>
+                        <input type="text" id="ink4_Name" name="ink4_Name" class="inkName" maxlength="24" value="Black">
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        <input type="checkbox" id="ink5" name="ink5">
+                        <label for="ink5_Name">Ink 5:</label>
+                        <input type="text" id="ink5_Name" name="ink5_Name" class="inkName" maxlength="24" value="Orange" disabled>
+                    </span><span>
+                        <input type="checkbox" id="ink6" name="ink6">
+                        <label for="ink6_Name">Ink 6:</label>
+                        <input type="text" id="ink6_Name" name="ink6_Name" class="inkName" maxlength="24" value="Green" disabled>
+                    </span>
+                </div>
+            </fieldset>
+
+            <br />
+
+            <fieldset>
+                <legend>Starting Values</legend>
+                <div>
+                    <span id="ink1_Start">
+                        <label id="ink1_sLabel" for="ink1_Value">Cyan:</label>
+                        <input type="number" id="ink1_Value" name="ink1_Value" min="0" max="100" value = "10">
+                    </span>
+                    <span id="ink2_Start">
+                        <label id="ink2_sLabel" for="ink2_Value">Magenta:</label>
+                        <input type="number" id="ink2_Value" name="ink2_Value" min="0" max="100" value = "10">
+                    </span>
+                    <span id="ink3_Start">
+                        <label id="ink3_sLabel" for="ink3_Value">Yellow:</label>
+                        <input type="number" id="ink3_Value" name="ink3_Value" min="0" max="100" value = "10">
+                    </span>
+                </div>
+                <div>
+                    <span id="ink4_Start">
+                        <label id="ink4_sLabel" for="ink4_Value">Black:</label>
+                        <input type="number" id="ink4_Value" name="ink4_Value" min="0" max="100" value = "10">
+                    </span>
+                    <span id="ink5_Start">
+                        <label id="ink5_sLabel" for="ink5_Value">Orange:</label>
+                        <input type="number" id="ink5_Value" name="ink5_Value" min="0" max="100" value = "0" disabled>
+                    </span>
+                    <span id="ink6_Start">
+                        <label id="ink6_sLabel" for="ink6_Value">Green:</label>
+                        <input type="number" id="ink6_Value" name="ink6_Value" min="0" max="100" value = "0" disabled>
+                    </span>
+                </div>
+            </fieldset>
+
+            <br />
+
+            <fieldset>
+                <legend>Size Options</legend>
+                <div>
+                    <span>
+                        <label for="PageWidth">Page Width:</label>
+                        <input type="number" id="PageWidth" class="size" name="PageWidth" min="8.5" max="13" value="8.5">"
+                    </span><span>
+                        <label for="PageHeight">Page Height:</label>
+                        <input type="number" id="PageHeight" class="size" name="PageHeight" min="11" max="21" value="11">"
+                    </span>
+                </div>
+                <div>
+                    <label for="SwatchWidth">Swatch Size:</label>
+                    <input type="number" id="SwatchWidth" class="size" name="SwatchWidth" min=".25" max="2.5" value=".625">"
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Grid Options</legend>
+                <div>
+                    <span>
+                        <label for="ink1_Step">Step %:</label>
+                        <input type="number" id="ink1_Step" name="ink1_Step" min="0" max="9" step="1" value="1">
+                    </span><span>
+                        <label for="ink1_Down">Step Down:</label>
+                        <input type="number" id="ink1_Down" name="ink1_Down" min="0" max="9" step="1" value="1">
+                    </span><span>
+                        <label for="ink1_Up">Step Up:</label>
+                        <input type="number" id="ink1_Up" name="ink1_Up" min="0" max="9" step="1" value="1">
+                    </span>
+                </div>
+            </fieldset>
+
+            <br />
+            <hr>
+            <br />
+
+            <button type="submit" id="btn_generate">
+                Generate Charts
+            </button>
+        </form>
+    </main>
+
+    <pre id="log">
+    </pre>
+
+    <script type="module" src="./js/main.js"></script>
+</body>
+
+</html>

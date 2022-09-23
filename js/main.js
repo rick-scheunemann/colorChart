@@ -1,37 +1,29 @@
 import * as ui from './ui.js';
-import * as listener from './listeners.js';
-import Grid from './classes/Grid.js';
+import GridChart from './classes/GridChart.js';
 
-// TODO generate ui rather than use html
+// init with default form values
+const gridChart = new GridChart(ui.formData());
 
 // event listeners
-ui.checkBoxes.forEach((e) => {
-  e.addEventListener('change', listener.toggleInk);
+ui.inkCheckBoxes.forEach((el) => {
+  el.addEventListener('change', (event) => {
+    ui.toggleInk(event);
+    gridChart.update(ui.formData());
+    ui.update(gridChart.ui());
+  });
 });
 
-ui.inkNames.forEach((e) => {
-  e.addEventListener('input', listener.updateName);
+ui.title.addEventListener('input', (event) => {
+  gridChart.setTitle(event.target.value);
 });
 
-ui.sizes.forEach((e) => {
-  e.addEventListener('input', listener.updateSize);
+ui.sizes.forEach((el) => {
+  el.addEventListener('input', () => {
+    gridChart.update(ui.formData());
+    ui.update(gridChart.ui());
+  });
 });
 
 ui.form.addEventListener('submit', (event) => {
   event.preventDefault();
-
-  const data = new FormData(ui.form);
-  const fd = Array.from(data).reduce((obj, [k, v]) => ({ ...obj, [k]: v }), {});
-
-  const theGrid = new Grid(3, 3);
-
-  // generate grid
-
-  // log
-  let logOutput = '';
-  // eslint-disable-next-line no-restricted-syntax
-  for (const [key, value] of Object.entries(fd)) {
-    logOutput = `${logOutput}${key}: ${value}\r`;
-  }
-  ui.log.innerText = logOutput;
 }, false);

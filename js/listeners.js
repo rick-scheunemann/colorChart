@@ -8,13 +8,24 @@ const toggleInk = (event) => {
   const startValField = document.querySelector(`#${id}_Value`);
   startValField.disabled = !checked;
   if (!checked && startValField.value !== 0) { startValField.value = 0; }
+
+  const stepPercentField = document.querySelector(`#${id}_Step`);
+  stepPercentField.disabled = !checked;
+
+  const stepDownField = document.querySelector(`#${id}_Down`);
+  stepDownField.disabled = !checked;
+  if (!checked && stepDownField.value !== 0) { stepDownField.value = 0; }
+
+  const stepUpField = document.querySelector(`#${id}_Up`);
+  stepUpField.disabled = !checked;
+  if (!checked && stepUpField.value !== 0) { stepUpField.value = 0; }
 };
 
-const updateName = (event) => {
-  const { id, value } = event.target;
-  const startLabel = document.querySelector(`#${id.slice(0, 4)}_sLabel`);
-  startLabel.innerHTML = value;
-};
+// const updateName = (event) => {
+//   const { id, value } = event.target;
+//   const startLabel = document.querySelector(`#${id.slice(0, 4)}_sLabel`);
+//   startLabel.innerHTML = value;
+// };
 
 const updateStepLimits = (columns, rows) => {
   const rowLimit = (rows - 1) / 2;
@@ -50,11 +61,11 @@ const updateSize = () => {
   const columns = chartW / (swatchW + margin);
   const rows = chartH / (swatchW + margin);
 
-  updateStepLimits(columns, rows);
+  // updateStepLimits(columns, rows);
 };
 
 export {
   toggleInk,
-  updateName,
+  // updateName,
   updateSize,
 };

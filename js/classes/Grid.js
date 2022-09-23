@@ -1,30 +1,31 @@
+import Swatch from './Swatch.js';
+
 class Grid {
-  constructor(rows, columns) {
-    this.rows = rows;
-    this.columns = columns;
+  constructor(gridSize) {
+    [this.rows, this.columns] = gridSize;
     this.grid = undefined;
     this.prepareGrid();
+
+    console.log(this.rows);
   }
 
   prepareGrid() {
     this.grid = [
       ...Array(this.rows),
-    ].map((row, i) => [...Array(this.columns)].map((cell, j) => new Cell(i, j)));
-
-    this.configureCells();
+    ].map((row, i) => [...Array(this.columns)].map((swatch, j) => new Swatch(i, j)));
   }
 
-  configureCells() {
+  colorSwatches() {
     this.grid.forEach((row, i) => {
-      row.forEach((cell, j) => {
+      row.forEach((swatch, j) => {
         console.log(i, j);
 
-        cell.defineNeighbors(
-          this.get([i - 1], [j]), // north
-          this.get([i + 1], [j]), // south
-          this.get([i], [j + 1]), // east
-          this.get([i], [j - 1]), // west
-        );
+        // swatch.defineNeighbors(
+        //   this.get([i - 1], [j]), // north
+        //   this.get([i + 1], [j]), // south
+        //   this.get([i], [j + 1]), // east
+        //   this.get([i], [j - 1]), // west
+        // );
       });
     });
 
@@ -35,12 +36,6 @@ class Grid {
     if (x < 0 || x >= this.columns) { return null; }
     if (y < 0 || y >= this.rows) { return null; }
     return this.grid[y][x];
-  }
-
-  getRandom() {
-    const y = nU.getRandomIntMaxEnclusive(0, this.rows);
-    const x = nU.getRandomIntMaxEnclusive(0, this.grid[y].length);
-    return this.get(y, x);
   }
 
   size() {
@@ -54,10 +49,10 @@ class Grid {
     });
   }
 
-  eachCell(func) {
+  eachswatch(func) {
     this.grid.forEach((row) => {
-      row.forEach((cell) => {
-        func(cell);
+      row.forEach((swatch) => {
+        func(swatch);
       });
     });
   }

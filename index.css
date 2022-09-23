@@ -3,8 +3,8 @@ body {
 }
 
 div {
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 5px;
+    padding-bottom: 6px;
 }
 
 span {
@@ -12,5 +12,31 @@ span {
 }
 
 main {
-    width: 480px;
+    width: 550px;
+}
+
+input[type='number'].two{
+    width: 32px;
+}
+
+input[type='number'].three{
+    width: 40px;
+}
+
+input[type='number'].four{
+    width: 48px;
+}
+
+input[type='number'].five{
+    width: 56px;
+}
+
+.indent {
+    padding-left: 25px;
+}
+
+.title, .page, .swatch, .ink {
+    background-color: slategray;
+    margin: 5px;
+    padding: 5px;
 }

@@ -5,14 +5,6 @@ import GridChart from './classes/GridChart.js';
 const gridChart = new GridChart(ui.formData());
 
 // event listeners
-ui.inkCheckBoxes.forEach((el) => {
-  el.addEventListener('change', (event) => {
-    ui.toggleInk(event);
-    gridChart.update(ui.formData());
-    ui.update(gridChart.ui());
-  });
-});
-
 ui.title.addEventListener('input', (event) => {
   gridChart.setTitle(event.target.value);
 });
@@ -22,6 +14,46 @@ ui.sizes.forEach((el) => {
     gridChart.update(ui.formData());
     ui.update(gridChart.ui());
   });
+});
+
+ui.inkCheckBoxes.forEach((el) => {
+  el.addEventListener('change', (event) => {
+    ui.toggleInk(event);
+    gridChart.update(ui.formData());
+    ui.update(gridChart.ui());
+  });
+});
+
+ui.inkRowBtns.forEach((el) => {
+  el.addEventListener('input', (event) => {
+    ui.toggleInkRadio(event);
+    gridChart.update(ui.formData());
+    ui.update(gridChart.ui());
+  });
+});
+
+ui.inkColumnBtns.forEach((el) => {
+  el.addEventListener('input', (event) => {
+    ui.toggleInkRadio(event);
+    gridChart.update(ui.formData());
+    ui.update(gridChart.ui());
+  });
+});
+
+ui.inkPageBtns.forEach((el) => {
+  el.addEventListener('input', (event) => {
+    ui.toggleInkRadio(event);
+    gridChart.update(ui.formData());
+    ui.update(gridChart.ui());
+  });
+});
+
+ui.inkPagesFields.forEach((el) => {
+  el.addEventListener('input', ui.updateSlider);
+});
+
+ui.inkSliders.forEach((el) => {
+  el.addEventListener('input', ui.setSlider);
 });
 
 ui.form.addEventListener('submit', (event) => {

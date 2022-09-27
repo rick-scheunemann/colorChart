@@ -9,7 +9,13 @@ class GridChart {
 
   #spacing = 0.375; // space between swatches
 
-  #gridSize = [0, 0];// [x, y]
+  #gridSize = [0, 0]; // [x, y]
+
+  #inkData = {
+    rowInk: '',
+    colInk: '',
+
+  };
 
   constructor(formData) {
     this.grids = [];
@@ -23,27 +29,17 @@ class GridChart {
   }
 
   update(data) {
-    console.log(data);
+    console.log('GridChart.update data arg:\n', data);
     this.#gridSize = this.calcGridSize(data.pgWidth, data.pgHeight, data.swatchWidth);
 
-    // evaluate inks
-    let rowInk; let colInk;
-    if (this.#gridSize[0] > this.#gridSize[1]) { // horizontal grid
-      [rowInk, colInk] = data.inks;
-    } else { // vertical grid
-      [colInk, rowInk] = data.inks;
-    }
-    const pageInk = data.inks[3];
-    const staticInks = data.inks.slice(3);
+    const pageCount = data.pageInk ? data.pageInk.stepTotal : 1;
 
-    const pageCount = pageInk ? pageInk.stepTotal : 1;
-
-    // create grids
+    // populate grids
     this.prepareGrids(pageCount);
 
-    // populate colors on grids
+    // populate colors on grids or do on create?
 
-    console.log(this.grids);
+    console.log('GridChart.update this.grids:\n', this.grids);
   }
 
   setTitle(text) {
@@ -54,14 +50,25 @@ class GridChart {
     const gridMaxW = width - (2 * this.#margin + 2 * this.#minPadding);
     const gridMaxH = height - (2 * this.#margin + 2 * this.#minPadding);
     return [
-      Math.floor((gridMaxW + this.#spacing) / (swatchWidth + this.#spacing)),
       Math.floor((gridMaxH + this.#spacing) / (swatchWidth + this.#spacing)),
+      Math.floor((gridMaxW + this.#spacing) / (swatchWidth + this.#spacing)),
     ];
   }
 
   ui() { // format info for ui update
     return {
       gridSize: this.#gridSize,
+      inkLimits: [
+        {
+          minDown: 1,
+          maxDown: 2,
+          minUp: 1,
+          maxUp: 2,
+        },
+      ],
+      ink1stepMin: '',
+      ink1stepMax: '',
+      ink1startPosition: '',
     };
   }
 }

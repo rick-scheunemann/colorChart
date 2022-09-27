@@ -8,11 +8,11 @@ div {
 }
 
 span {
-    padding-right: 8px;
+    padding-right: 16px;
 }
 
 main {
-    width: 550px;
+    width: 580px;
 }
 
 input[type='number'].two{
@@ -31,6 +31,10 @@ input[type='number'].five{
     width: 56px;
 }
 
+input[type='radio']{
+    margin-left: 10px;
+}
+
 .indent {
     padding-left: 25px;
 }
@@ -39,4 +43,12 @@ input[type='number'].five{
     background-color: slategray;
     margin: 5px;
     padding: 5px;
+}
+
+.hide {
+    display:none;
+}
+
+.alignRight {
+    text-align: right;
 }

@@ -20,10 +20,10 @@
     <main>
         <form id="mainForm">
             <fieldset>
-                <legend>Options</legend>
+                <!-- <legend>Options</legend> -->
                 <div class="title">
                     <label for="Title">Chart Name:</label>
-                    <input type="text" id="Title" name="Title" required minlength="4" maxlength="64" size="24" placeholder="Name of Color">
+                    <input type="text" id="Title" name="Title" required minlength="4" maxlength="64" size="24" placeholder="Name of Color"/>
                 </div>
             </fieldset>
 
@@ -34,15 +34,15 @@
                 <div class="page">
                     <span>
                         <label for="PageWidth">Page Width:</label>
-                        <input type="number" id="PageWidth" class="size four" name="PageWidth" min="8.5" max="13" value="8.5">"
+                        <input type="number" id="PageWidth" class="size four" name="PageWidth" min="8.5" max="13" value="8.5"/>"
                     </span><span>
                         <label for="PageHeight">Page Height:</label>
-                        <input type="number" id="PageHeight" class="size four" name="PageHeight" min="11" max="21" value="11">"
+                        <input type="number" id="PageHeight" class="size four" name="PageHeight" min="11" max="21" value="11"/>"
                     </span>
                 </div>
                 <div class="swatch">
                     <label for="SwatchWidth">Swatch Size:</label>
-                    <input type="number" id="SwatchWidth" class="size five" name="SwatchWidth" min=".25" max="2.5" value="0.625" step=".005">"
+                    <input type="number" id="SwatchWidth" class="size five" name="SwatchWidth" min=".25" max="2.5" value="0.625" step=".005"/>"
                 </div>
             </fieldset>
 
@@ -50,154 +50,172 @@
 
             <fieldset>
                 <legend>Inks</legend>
-                    <div class="ink">
-                        <input type="checkbox" id="Ink1" class="inkCheckBox" name="Ink1" checked>
+                    <div id="1" class="ink">
+                        <input type="checkbox" id="Ink1" class="inkCheckBox" name="Ink1" checked/>
                         <label for="Ink1_Name">Ink 1:</label>
-                        <input type="text" id="Ink1_Name" name="Ink1_Name" class="inkName" maxlength="24" value="Cyan">
+                        <input type="text" id="Ink1_Name" name="Ink1_Name" class="inkName" maxlength="24" value="Cyan"/>
                         &nbsp;
                         <label for="Ink1_Value">Start Value:</label>
-                        <input type="number" id="Ink1_Value" class="three" name="Ink1_Value" min="0" max="100" value = "10">%
-                        <input type="radio" id="Prime_Ink1" name="Primary" value="1" checked/>
-                        <label for="Prime_Ink1">—</label>
-                        <input type="radio" id="Second_Ink1" name="Secondary" value="1"/>
-                        <label for="Second_Ink1">|</label>
-                        <input type="radio" id="Page_Ink1" name="Tertiary" value="1"/>
-                        <label for="Page_Ink1">☐</label>
+                        <input type="number" id="Ink1_Value" class="three" name="Ink1_Value" min="0" max="100" value = "10"/>%
+                        <input type="radio" id="Row_Ink1" name="Row" value="1" checked/>
+                        <label for="Row_Ink1">&harr;</label>
+                        <input type="radio" id="Column_Ink1" name="Column" value="1"/>
+                        <label for="Column_Ink1">&#8597;</label>
+                        <input type="radio" id="Page_Ink1" name="Page" value="1"/>
+                        <label for="Page_Ink1">&#9647;&#9647;&#9647;</label>
                         <div class="indent">
                             <span>
                                 <label for="Ink1_Step">Step %:</label>
-                                <input type="number" id="Ink1_Step" class="two" name="Ink1_Step" min="1" max="9" step="1" value="2">
+                                <input type="number" id="Ink1_Step" class="two" name="Ink1_Step" min="1" max="9" step="1" value="2"/>
                             </span><span>
-                                <label for="Ink1_Down">Step Down:</label>
-                                <input type="number" id="Ink1_Down" class="two" name="Ink1_Down" min="0" max="9" step="1" value="2">
-                            </span><span>
-                                <label for="Ink1_Up">Step Up:</label>
-                                <input type="number" id="Ink1_Up" class="two" name="Ink1_Up" min="0" max="9" step="1" value="3">
+                                <label for="Ink1_Start">Steps: &nbsp; &larr; </label>
+                                <label for="Ink1_Start" id="Ink1_Down">2</label>
+                                <input type="range" id="Ink1_Start" class="inkSlider" name="Ink1_Start" min="0" max="5" value="2"/>
+                                <label for="Ink1_Start" id="Ink1_Up">3</label>
+                                <label for="Ink1_Start">&rarr;</label>
+                            </span><span id="Ink1_PgInput" class="hide">
+                                <label for="Ink1_Pages">Pages:</label>
+                                <input type="number" id="Ink1_Pages" class="inkPages two" name="Ink1_Pages" min="1" max="8" step="1" value="3"/>
                             </span>
                         </div>
-                    </div><div class="ink">
-                        <input type="checkbox" id="Ink2" class="inkCheckBox" name="Ink2" checked>
+                    </div><div id="2" class="ink">
+                        <input type="checkbox" id="Ink2" class="inkCheckBox" name="Ink2" checked/>
                         <label for="Ink2_Name">Ink 2:</label>
-                        <input type="text" id="Ink2_Name" name="Ink2_Name" class="inkName" maxlength="24" value="Magenta">
+                        <input type="text" id="Ink2_Name" name="Ink2_Name" class="inkName" maxlength="24" value="Magenta"/>
                         &nbsp;
                         <label for="Ink2_Value">Start Value:</label>
-                        <input type="number" id="Ink2_Value" class="three" name="Ink2_Value" min="0" max="100" value = "10">%
-                        <input type="radio" id="Prime_Ink2" name="Primary" value="2"/>
-                        <label for="Prime_Ink2">—</label>
-                        <input type="radio" id="Second_Ink2" name="Secondary" value="2" checked/>
-                        <label for="Second_Ink2">|</label>
-                        <input type="radio" id="Page_Ink2" name="Tertiary" value="2"/>
-                        <label for="Page_Ink2">☐</label>
+                        <input type="number" id="Ink2_Value" class="three" name="Ink2_Value" min="0" max="100" value = "10"/>%
+                        <input type="radio" id="Row_Ink2" name="Row" value="2"/>
+                        <label for="Row_Ink2">&harr;</label>
+                        <input type="radio" id="Column_Ink2" name="Column" value="2" checked/>
+                        <label for="Column_Ink2">&#8597;</label>
+                        <input type="radio" id="Page_Ink2" name="Page" value="2"/>
+                        <label for="Page_Ink2">&#9647;&#9647;&#9647;</label>
                         <div class="indent">
                             <span>
                                 <label for="Ink2_Step">Step %:</label>
-                                <input type="number" id="Ink2_Step" class="two" name="Ink2_Step" min="1" max="9" step="1" value="2">
+                                <input type="number" id="Ink2_Step" class="two" name="Ink2_Step" min="1" max="9" step="1" value="2"/>
                             </span><span>
-                                <label for="Ink2_Down">Step Down:</label>
-                                <input type="number" id="Ink2_Down" class="two" name="Ink2_Down" min="0" max="9" step="1" value="3">
-                            </span><span>
-                                <label for="Ink2_Up">Step Up:</label>
-                                <input type="number" id="Ink2_Up" class="two" name="Ink2_Up" min="0" max="9" step="1" value="4">
+                            <label for="Ink2_Start">Steps: &nbsp; &larr;</label>
+                            <label for="Ink2_Start" id="Ink2_Down">3</label>
+                            <input type="range" id="Ink2_Start" class="inkSlider" name="Ink2_Start" min="0" max="7" value="4"/>
+                            <label for="Ink2_Start" id="Ink2_Up">4</label>
+                            <label for="Ink2_Start">&rarr;</label>
+                            </span><span id="Ink2_PgInput" class="hide">
+                                <label for="Ink2_Pages">Pages:</label>
+                                <input type="number" id="Ink2_Pages" class="inkPages two" name="Ink2_Pages" min="1" max="8" step="1" value="3"/>
                             </span>
                         </div>
-                    </div><div class="ink">
-                        <input type="checkbox" id="Ink3" class="inkCheckBox" name="Ink3" checked>
+                    </div><div id="3" class="ink">
+                        <input type="checkbox" id="Ink3" class="inkCheckBox" name="Ink3" checked/>
                         <label for="Ink3_Name">Ink 3:</label>
-                        <input type="text" id="Ink3_Name" name="Ink3_Name" class="inkName" maxlength="24" value="Yellow">
+                        <input type="text" id="Ink3_Name" name="Ink3_Name" class="inkName" maxlength="24" value="Yellow"/>
                         &nbsp;
                         <label for="Ink3_Value">Start Value:</label>
-                        <input type="number" id="Ink3_Value" class="three" name="Ink3_Value" min="0" max="100" value = "10">%
-                        <input type="radio" id="Prime_Ink3" name="Primary" value="3"/>
-                        <label for="Prime_Ink3">—</label>
-                        <input type="radio" id="Second_Ink3" name="Secondary" value="3"/>
-                        <label for="Second_Ink3">|</label>
-                        <input type="radio" id="Page_Ink3" name="Tertiary" value="3" checked/>
-                        <label for="Page_Ink3">☐</label>
+                        <input type="number" id="Ink3_Value" class="three" name="Ink3_Value" min="0" max="100" value = "10"/>%
+                        <input type="radio" id="Row_Ink3" name="Row" value="3"/>
+                        <label for="Row_Ink3">&harr;</label>
+                        <input type="radio" id="Column_Ink3" name="Column" value="3"/>
+                        <label for="Column_Ink3">&#8597;</label>
+                        <input type="radio" id="Page_Ink3" name="Page" value="3" checked/>
+                        <label for="Page_Ink3">&#9647;&#9647;&#9647;</label>
                         <div class="indent">
                             <span>
                                 <label for="Ink3_Step">Step %:</label>
-                                <input type="number" id="Ink3_Step" class="two" name="Ink3_Step" min="1" max="9" step="1" value="2">
+                                <input type="number" id="Ink3_Step" class="two" name="Ink3_Step" min="1" max="8" step="1" value="2"/>
                             </span><span>
-                                <label for="Ink3_Down">Step Down:</label>
-                                <input type="number" id="Ink3_Down" class="two" name="Ink3_Down" min="0" max="9" step="1" value="0">
-                            </span><span>
-                                <label for="Ink3_Up">Step Up:</label>
-                                <input type="number" id="Ink3_Up" class="two" name="Ink3_Up" min="0" max="9" step="1" value="0">
+                            <label for="Ink3_Start">Steps: &nbsp; &larr; </label>
+                            <label for="Ink3_Start" id="Ink3_Down">1</label>
+                            <input type="range" id="Ink3_Start" class="inkSlider" name="Ink3_Start" min="0" max="2" value="1"/>
+                            <label for="Ink3_Start" id="Ink3_Up">1</label>
+                            <label for="Ink3_Start">&rarr;</label>
+                            </span><span id="Ink3_PgInput" class="show">
+                                <label for="Ink3_Pages">Pages:</label>
+                                <input type="number" id="Ink3_Pages" class="inkPages two" name="Ink3_Pages" min="1" max="8" step="1" value="3"/>
                             </span>
                         </div>
-                    </div><div class="ink">
-                        <input type="checkbox" id="Ink4" class="inkCheckBox" name="Ink4" checked>
+                    </div><div id="4" class="ink">
+                        <input type="checkbox" id="Ink4" class="inkCheckBox" name="Ink4" checked/>
                         <label for="Ink4_Name">Ink 4:</label>
-                        <input type="text" id="Ink4_Name" name="Ink4_Name" class="inkName" maxlength="24" value="Black">
+                        <input type="text" id="Ink4_Name" name="Ink4_Name" class="inkName" maxlength="24" value="Black"/>
                         &nbsp;
                         <label for="Ink4_Value">Start Value:</label>
-                        <input type="number" id="Ink4_Value" class="three" name="Ink4_Value" min="0" max="100" value = "10">%
-                        <input type="radio" id="Prime_Ink4" name="Primary" value="4"/>
-                        <label for="Prime_Ink4">—</label>
-                        <input type="radio" id="Second_Ink4" name="Secondary" value="4"/>
-                        <label for="Second_Ink4">|</label>
-                        <input type="radio" id="Page_Ink4" name="Tertiary" value="4"/>
-                        <label for="Page_Ink4">☐</label>
+                        <input type="number" id="Ink4_Value" class="three" name="Ink4_Value" min="0" max="100" value = "10"/>%
+                        <input type="radio" id="Row_Ink4" name="Row" value="4"/>
+                        <label for="Row_Ink4">&harr;</label>
+                        <input type="radio" id="Column_Ink4" name="Column" value="4"/>
+                        <label for="Column_Ink4">&#8597;</label>
+                        <input type="radio" id="Page_Ink4" name="Page" value="4"/>
+                        <label for="Page_Ink4">&#9647;&#9647;&#9647;</label>
                         <div class="indent">
                             <span>
                                 <label for="Ink4_Step">Step %:</label>
-                                <input type="number" id="Ink4_Step" class="two" name="Ink4_Step" min="1" max="9" step="1" value="2">
+                                <input type="number" id="Ink4_Step" class="two" name="Ink4_Step" min="1" max="9" step="1" value="2"/>
                             </span><span>
-                                <label for="Ink4_Down">Step Down:</label>
-                                <input type="number" id="Ink4_Down" class="two" name="Ink4_Down" min="0" max="9" step="1" value="0">
-                            </span><span>
-                                <label for="Ink4_Up">Step Up:</label>
-                                <input type="number" id="Ink4_Up" class="two" name="Ink4_Up" min="0" max="9" step="1" value="0">
+                            <label for="Ink4_Start">Steps: &nbsp; &larr; </label>
+                            <label for="Ink4_Start" id="Ink4_Down">0</label>
+                            <input type="range" id="Ink4_Start" class="inkSlider" name="Ink4_Start" min="0" max="0" disabled/>
+                            <label for="Ink4_Start" id="Ink4_Up">0</label>
+                            <label for="Ink4_Start">&rarr;</label>
+                            </span><span id="Ink4_PgInput" class="hide">
+                                <label for="Ink4_Pages">Pages:</label>
+                                <input type="number" id="Ink4_Pages" class="inkPages two" name="Ink4_Pages" min="1" max="8" step="1" value="3"/>
                             </span>
                         </div>
-                    </div><div class="ink">
+                    </div><div id="5" class="ink">
                         <input type="checkbox" id="Ink5" class="inkCheckBox" name="Ink5">
                         <label for="Ink5_Name">Ink 5:</label>
-                        <input type="text" id="Ink5_Name" name="Ink5_Name" class="inkName" maxlength="24" value="Orange" disabled>
+                        <input type="text" id="Ink5_Name" name="Ink5_Name" class="inkName" maxlength="24" value="Orange" disabled/>
                         &nbsp;
                         <label for="Ink5_Value">Start Value:</label>
-                        <input type="number" id="Ink5_Value" class="three" name="Ink5_Value" min="0" max="100" value = "0"  disabled>%
-                        <input type="radio" id="Prime_Ink5" name="Primary" value="5" disabled/>
-                        <label for="Prime_Ink5">—</label>
-                        <input type="radio" id="Second_Ink5" name="Secondary" value="5" disabled/>
-                        <label for="Second_Ink5">|</label>
-                        <input type="radio" id="Page_Ink5" name="Tertiary" value="5" disabled/>
-                        <label for="Page_Ink5">☐</label>
+                        <input type="number" id="Ink5_Value" class="three" name="Ink5_Value" min="0" max="100" value = "0"  disabled/>%
+                        <input type="radio" id="Row_Ink5" name="Row" value="5" disabled/>
+                        <label for="Row_Ink5">&harr;</label>
+                        <input type="radio" id="Column_Ink5" name="Column" value="5" disabled/>
+                        <label for="Column_Ink5">&#8597;</label>
+                        <input type="radio" id="Page_Ink5" name="Page" value="5" disabled/>
+                        <label for="Page_Ink5">&#9647;&#9647;&#9647;</label>
                         <div class="indent">
                             <span>
                                 <label for="Ink5_Step">Step %:</label>
-                                <input type="number" id="Ink5_Step" class="two" name="Ink5_Step" min="1" max="9" step="1" value="2" disabled>
+                                <input type="number" id="Ink5_Step" class="two" name="Ink5_Step" min="1" max="9" step="1" value="2" disabled/>
                             </span><span>
-                                <label for="Ink5_Down">Step Down:</label>
-                                <input type="number" id="Ink5_Down" class="two" name="Ink5_Down" min="0" max="9" step="1" value="0" disabled>
-                            </span><span>
-                                <label for="Ink5_Up">Step Up:</label>
-                                <input type="number" id="Ink5_Up" class="two" name="Ink5_Up" min="0" max="9" step="1" value="0" disabled>
+                                <label for="Ink5_Start">Steps: &nbsp; &larr; </label>
+                                <label for="Ink5_Start" id="Ink5_Down">0</label>
+                                <input type="range" id="Ink5_Start" class="inkSlider" name="Ink5_Start" min="0" max="0" disabled/>
+                                <label for="Ink5_Start" id="Ink5_Up">0</label>
+                                <label for="Ink5_Start">&rarr;</label>
+                            </span><span id="Ink5_PgInput" class="hide">
+                                <label for="Ink5_Pages">Pages:</label>
+                                <input type="number" id="Ink5_Pages" class="inkPages two" name="Ink5_Pages" min="1" max="8" step="1" value="3"/>
                             </span>
                         </div>
-                    </div><div class="ink">
+                    </div><div id="6" class="ink">
                         <input type="checkbox" id="Ink6" class="inkCheckBox" name="Ink6">
                         <label for="Ink6_Name">Ink 6:</label>
-                        <input type="text" id="Ink6_Name" name="Ink6_Name" class="inkName" maxlength="24" value="Green" disabled>
+                        <input type="text" id="Ink6_Name" name="Ink6_Name" class="inkName" maxlength="24" value="Green" disabled/>
                         &nbsp;
                         <label for="Ink6_Value">Start Value:</label>
-                        <input type="number" id="Ink6_Value" class="three" name="Ink6_Value" min="0" max="100" value = "0" disabled>%
-                        <input type="radio" id="Prime_Ink6" name="Primary" value="6" disabled/>
-                        <label for="Prime_Ink6">—</label>
-                        <input type="radio" id="Second_Ink6" name="Secondary" value="6" disabled/>
-                        <label for="Second_Ink6">|</label>
-                        <input type="radio" id="Page_Ink6" name="Tertiary" value="6" disabled/>
-                        <label for="Page_Ink6">☐</label>
+                        <input type="number" id="Ink6_Value" class="three" name="Ink6_Value" min="0" max="100" value = "0" disabled/>%
+                        <input type="radio" id="Row_Ink6" name="Row" value="6" disabled/>
+                        <label for="Row_Ink6">&harr;</label>
+                        <input type="radio" id="Column_Ink6" name="Column" value="6" disabled/>
+                        <label for="Column_Ink6">&#8597;</label>
+                        <input type="radio" id="Page_Ink6" name="Page" value="6" disabled/>
+                        <label for="Page_Ink6">&#9647;&#9647;&#9647;</label>
                         <div class="indent">
                             <span>
                                 <label for="Ink6_Step">Step %:</label>
-                                <input type="number" id="Ink6_Step" class="two" name="Ink6_Step" min="1" max="9" step="1" value="2" disabled>
+                                <input type="number" id="Ink6_Step" class="two" name="Ink6_Step" min="1" max="9" step="1" value="2" disabled/>
                             </span><span>
-                                <label for="Ink6_Down">Step Down:</label>
-                                <input type="number" id="Ink6_Down" class="two" name="Ink6_Down" min="0" max="9" step="1" value="0" disabled>
-                            </span><span>
-                                <label for="Ink6_Up">Step Up:</label>
-                                <input type="number" id="Ink6_Up" class="two" name="Ink6_Up" min="0" max="9" step="1" value="0" disabled>
+                                <label for="Ink6_Start">Steps: &nbsp; &larr; </label>
+                                <label for="Ink6_Start" id="Ink6_Down">0</label>
+                                <input type="range" id="Ink6_Start" class="inkSlider" name="Ink5_Start" min="0" max="0"  disabled/>
+                                <label for="Ink6_Start" id="Ink6_Up">0</label>
+                                <label for="Ink6_Start">&rarr;</label>
+                            </span><span id="Ink6_PgInput" class="hide">
+                                <label for="Ink6_Pages">Pages:</label>
+                                <input type="number" id="Ink6_Pages" class="inkPages two" name="Ink6_Pages" min="1" max="8" step="1" value="3"/>
                             </span>
                         </div>
                     </div>
@@ -208,19 +226,22 @@
             <fieldset>
                 <legend>Grid Options</legend>
                 <div>
-                    <input type="checkbox" id="BackAll" name="BackAll" checked>
+                    <input type="checkbox" id="BackAll" name="BackAll" checked/>
                     <label for="BackAll_Name">Back all using Ink:</label>
                     <input type="text" id="BackAll_Name" name="BackAll_Name" maxlength="24" value="White">
                 </div>
             </fieldset>
 
             <br />
-            <hr>
-            <br />
 
-            <button type="submit" id="btn_generate">
-                Generate Charts
-            </button>
+            <div class="alignRight">
+                <button id="btn_preview">
+                    Preview Charts
+                </button>
+                <button type="submit" id="btn_generate">
+                    Generate Charts
+                </button>
+            </div>
         </form>
     </main>
 

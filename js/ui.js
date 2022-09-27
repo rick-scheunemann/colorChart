@@ -1,39 +1,52 @@
+import * as util from './utilities/ui_utilities.js';
+
 // Select DOM elements to work with
 const form = document.querySelector('form');
 const title = document.querySelector('#Title');
 const inkCheckBoxes = document.querySelectorAll('.inkCheckBox');
+const inkRowBtns = document.querySelectorAll("input[name='Row']");
+const inkColumnBtns = document.querySelectorAll("input[name='Column']");
+const inkPageBtns = document.querySelectorAll("input[name='Page']");
+const inkPagesFields = document.querySelectorAll('.inkPages');
+const inkSliders = document.querySelectorAll('.inkSlider');
+
 const sizes = document.querySelectorAll('.size');
 
 const toggleInk = (event) => {
   const { id, checked } = event.target;
-  const nameField = document.querySelector(`#${id}_Name`);
-  nameField.disabled = !checked;
+  util.setDisabledByID(`${id}_Name`, !checked);
+  util.setDisabledByID(`${id}_Value`, !checked);
+  util.setDisabledByID(`${id}_Step`, !checked);
+  util.setDisabledByID(`${id}_Start`, !checked);
+  util.setDisabledByID(`Row_${id}`, !checked);
+  util.setDisabledByID(`Column_${id}`, !checked);
+  util.setDisabledByID(`Page_${id}`, !checked);
+};
 
-  const startValField = document.querySelector(`#${id}_Value`);
-  startValField.disabled = !checked;
-  if (!checked && startValField.value !== 0) { startValField.value = 0; }
+const toggleInkRadio = (event) => {
+  console.log('ui.toggleInkRadio event arg', event);
+  util.selectThisRadio(event.target);
+};
 
-  const stepPercentField = document.querySelector(`#${id}_Step`);
-  stepPercentField.disabled = !checked;
+const updateSlider = (event) => {
+  console.log('ui.updateSlider event arg', event);
+  const pageCount = event.target.value;
+  const id = event.target.name.slice(0, 4);
+  util.setSliderValues(id, pageCount);
+};
 
-  const stepDownField = document.querySelector(`#${id}_Down`);
-  stepDownField.disabled = !checked;
-  if (!checked && stepDownField.value !== 0) { stepDownField.value = 0; }
-
-  const stepUpField = document.querySelector(`#${id}_Up`);
-  stepUpField.disabled = !checked;
-  if (!checked && stepUpField.value !== 0) { stepUpField.value = 0; }
-
-  let radBtn = document.querySelector(`#Prime_${id}`);
-  radBtn.disabled = !checked;
-  radBtn = document.querySelector(`#Second_${id}`);
-  radBtn.disabled = !checked;
-  radBtn = document.querySelector(`#Page_${id}`);
-  radBtn.disabled = !checked;
+const setSlider = (event) => {
+  console.log('ui.setSlider event arg', event);
+  const id = event.target.name.slice(0, 4);
+  const down = document.querySelector(`#${id}_Down`);
+  const up = document.querySelector(`#${id}_Up`);
+  const val = event.target.valueAsNumber;
+  down.innerHTML = val;
+  up.innerHTML = event.target.max - val;
 };
 
 const formData = () => {
-  console.log(Array.from(new FormData(form)));
+  console.log('ui.formData Arr from form:', Array.from(new FormData(form)));
 
   const d = Array.from(new FormData(form)).reduce((obj, [k, v]) => ({ ...obj, [k]: v }), {});
   const dataObj = {
@@ -41,63 +54,61 @@ const formData = () => {
     pgHeight: parseFloat(d.PageHeight),
     pgWidth: parseFloat(d.PageWidth),
     swatchWidth: parseFloat(d.SwatchWidth),
-    inks: [],
-    primeInk: d.Primary,
-    secondaryInk: d.Secondary,
-    tertiaryInk: d.Tertiary,
+    rowInk: undefined,
+    colInk: undefined,
+    pageInk: undefined,
+    staticInks: [],
     backAll: d.BackAll === 'on' ? d.BackAll_Name : false,
   };
-  let i;
+  const row = parseInt(d.Row, 10);
+  const col = parseInt(d.Column, 10);
+  const pg = parseInt(d.Page, 10);
+  let i; let thisInk;
   for (i = 1; i < 7; i += 1) {
     if (d[`Ink${i}`]) {
-      const stepUp = parseInt(d[`Ink${i}_Up`], 10);
-      const stepDown = parseInt(d[`Ink${i}_Down`], 10);
-      dataObj.inks.push({
+      thisInk = {
         name: d[`Ink${i}_Name`],
         id: i,
-        value: parseInt(d[`Ink${i}_Value`], 10),
-        stepSize: parseInt(d[`Ink${i}_Step`], 10),
-        stepUp,
-        stepDown,
-        stepTotal: stepDown + 1 + stepUp,
-      });
+        startValue: parseInt(d[`Ink${i}_Value`], 10),
+        startLocation: parseInt(d[`Ink${i}_Start`], 10),
+        stepPercent: parseInt(d[`Ink${i}_Step`], 10),
+      };
+      if (i === row) {
+        dataObj.rowInk = thisInk;
+      } else if (i === col) {
+        dataObj.colInk = thisInk;
+      } else if (i === pg) {
+        thisInk.pages = parseInt(d[`Ink${i}_Pages`], 10);
+        dataObj.pageInk = thisInk;
+      } else {
+        dataObj.staticInks.push(thisInk);
+      }
     }
   }
-  dataObj.inks.sort((a, b) => b.stepTotal - a.stepTotal);
 
   return dataObj;
 };
 
-const update = (gridData) => {
+const update = (data) => {
+  console.log('ui.update data arg:\n', data);
   // set ink info
-
 };
-
-// const updateSize = () => {
-//   const pageW = sizes[0].value;
-//   const pageH = sizes[1].value;
-//   const swatchW = sizes[2].value; // swatches are square
-
-//   console.log(`${pageW}, ${pageH}, ${swatchW}`);
-
-//   // calc max up & down on page size using swatch size
-//   const margin = 0.125;
-//   const chartW = pageW - 1;
-//   const chartH = pageH - 1;
-
-//   const columns = chartW / (swatchW + margin);
-//   const rows = chartH / (swatchW + margin);
-
-//   // updateStepLimits(columns, rows);
-// };
 
 export {
   form,
   title,
   inkCheckBoxes,
+  inkRowBtns,
+  inkColumnBtns,
+  inkPageBtns,
+  inkPagesFields,
+  inkSliders,
   sizes,
   //
   toggleInk,
+  toggleInkRadio,
+  updateSlider,
+  setSlider,
   formData,
   update,
   // updateSize,

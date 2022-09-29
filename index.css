@@ -12,43 +12,180 @@ span {
 }
 
 main {
-    width: 580px;
+    width: 590px;
 }
 
-input[type='number'].two{
+input[type='number'].two {
     width: 32px;
 }
 
-input[type='number'].three{
+input[type='number'].three {
     width: 40px;
 }
 
-input[type='number'].four{
+input[type='number'].four {
     width: 48px;
 }
 
-input[type='number'].five{
+input[type='number'].five {
     width: 56px;
 }
 
-input[type='radio']{
+input[type='radio'] {
     margin-left: 10px;
+}
+
+#rectangle{
+    margin-left: 15px;
+    padding-bottom: 1px;
+    padding-right: 265px;
+    background:rgb(203, 200, 199);
 }
 
 .indent {
     padding-left: 25px;
 }
 
-.title, .page, .swatch, .ink {
+.indentSm {
+    padding-left: 12px;
+}
+
+.title,
+.page,
+.ink {
     background-color: slategray;
     margin: 5px;
     padding: 5px;
 }
 
 .hide {
-    display:none;
+    display: none;
 }
 
 .alignRight {
     text-align: right;
 }
+
+/* slider coloring- */
+input[type="range"] {
+    -webkit-appearance: none;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+#Ink1_Start {
+    --slider-brightness: 90%;
+}
+
+#Ink1_Start::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--slider-brightness));
+}
+
+#Ink1_Start::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--scrollbar-background));
+}
+
+#Ink2_Start {
+    --slider-brightness: 90%;
+}
+
+#Ink2_Start::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--slider-brightness));
+}
+
+#Ink2_Start::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--scrollbar-background));
+}
+
+#Ink3_Start {
+    --slider-brightness: 90%;
+}
+
+#Ink3_Start::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--slider-brightness));
+}
+
+#Ink3_Start::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--scrollbar-background));
+}
+
+#Ink4_Start {
+    --slider-brightness: 90%;
+}
+
+#Ink4_Start::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--slider-brightness));
+}
+
+#Ink4_Start::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--scrollbar-background));
+}
+
+#Ink5_Start {
+    --slider-brightness: 100%;
+}
+
+#Ink5_Start::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--slider-brightness));
+}
+
+#Ink5_Start::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--scrollbar-background));
+}
+
+#Ink6_Start {
+    --slider-brightness: 100%;
+}
+
+#Ink6_Start::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--slider-brightness));
+}
+
+#Ink6_Start::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background: rgb(230, 230, 230);
+    filter: brightness(var(--scrollbar-background));
+}
+/* -slider coloring */

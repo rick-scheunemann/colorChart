@@ -1,61 +1,74 @@
 import * as ui from './ui.js';
 import GridChart from './classes/GridChart.js';
 
-// init with default form values
 const gridChart = new GridChart(ui.formData());
 
 // event listeners
-ui.title.addEventListener('input', (event) => {
-  gridChart.setTitle(event.target.value);
+
+ui.title.addEventListener('input', () => {
+  ui.form.reportValidity();
 });
 
-ui.sizes.forEach((el) => {
+document.querySelectorAll('.size').forEach((el) => {
   el.addEventListener('input', () => {
-    gridChart.update(ui.formData());
-    ui.update(gridChart.ui());
+    ui.form.reportValidity();
+    ui.updateForGridChange(gridChart.updateSize(ui.formData()));
   });
 });
 
-ui.inkCheckBoxes.forEach((el) => {
+document.querySelector('#BackAll').addEventListener('change', (event) => {
+  document.querySelector('#BackAll_Name').disabled = !event.target.checked;
+});
+
+document.querySelectorAll('.inkValue').forEach((el) => {
+  ui.form.reportValidity();
+  el.addEventListener('input', ui.updateColor);
+});
+
+document.querySelectorAll('.inkCheckBox').forEach((el) => {
   el.addEventListener('change', (event) => {
+    ui.form.reportValidity();
     ui.toggleInk(event);
-    gridChart.update(ui.formData());
-    ui.update(gridChart.ui());
   });
 });
 
-ui.inkRowBtns.forEach((el) => {
+document.querySelectorAll("input[name='Row']").forEach((el) => {
   el.addEventListener('input', (event) => {
+    ui.form.reportValidity();
     ui.toggleInkRadio(event);
-    gridChart.update(ui.formData());
-    ui.update(gridChart.ui());
   });
 });
 
-ui.inkColumnBtns.forEach((el) => {
+document.querySelectorAll("input[name='Column']").forEach((el) => {
   el.addEventListener('input', (event) => {
+    ui.form.reportValidity();
     ui.toggleInkRadio(event);
-    gridChart.update(ui.formData());
-    ui.update(gridChart.ui());
   });
 });
 
-ui.inkPageBtns.forEach((el) => {
+document.querySelectorAll("input[name='Page']").forEach((el) => {
   el.addEventListener('input', (event) => {
+    ui.form.reportValidity();
     ui.toggleInkRadio(event);
-    gridChart.update(ui.formData());
-    ui.update(gridChart.ui());
   });
 });
 
-ui.inkPagesFields.forEach((el) => {
-  el.addEventListener('input', ui.updateSlider);
+document.querySelectorAll('.inkPages').forEach((el) => {
+  el.addEventListener('input', (event) => {
+    ui.form.reportValidity();
+    ui.updateSlider(event);
+  });
 });
 
-ui.inkSliders.forEach((el) => {
-  el.addEventListener('input', ui.setSlider);
+document.querySelectorAll('.inkSlider').forEach((el) => {
+  el.addEventListener('input', (event) => {
+    ui.form.reportValidity();
+    ui.setSlider(event);
+  });
 });
 
 ui.form.addEventListener('submit', (event) => {
   event.preventDefault();
+  gridChart.populateGrids(ui.formData());
+  console.log(gridChart);
 }, false);

@@ -3,14 +3,7 @@ import * as util from './utilities/ui_utilities.js';
 // Select DOM elements to work with
 const form = document.querySelector('form');
 const title = document.querySelector('#Title');
-const inkCheckBoxes = document.querySelectorAll('.inkCheckBox');
-const inkRowBtns = document.querySelectorAll("input[name='Row']");
-const inkColumnBtns = document.querySelectorAll("input[name='Column']");
-const inkPageBtns = document.querySelectorAll("input[name='Page']");
-const inkPagesFields = document.querySelectorAll('.inkPages');
-const inkSliders = document.querySelectorAll('.inkSlider');
-
-const sizes = document.querySelectorAll('.size');
+const gridTxt = document.querySelector('#gridLayout');
 
 const toggleInk = (event) => {
   const { id, checked } = event.target;
@@ -21,11 +14,22 @@ const toggleInk = (event) => {
   util.setDisabledByID(`Row_${id}`, !checked);
   util.setDisabledByID(`Column_${id}`, !checked);
   util.setDisabledByID(`Page_${id}`, !checked);
+
+  util.updatePreviewColor();
 };
 
 const toggleInkRadio = (event) => {
   console.log('ui.toggleInkRadio event arg', event);
   util.selectThisRadio(event.target);
+};
+
+const updateColor = (event) => {
+  console.log('ui.updateColor event arg', event);
+  const id = event.target.name.slice(0, 4);
+  const val = event.target.value;
+  const brightness = `${100 - val}%`;
+  document.querySelector(`#${id}_Start`).style.setProperty('--slider-brightness', brightness);
+  util.updatePreviewColor();
 };
 
 const updateSlider = (event) => {
@@ -69,9 +73,9 @@ const formData = () => {
       thisInk = {
         name: d[`Ink${i}_Name`],
         id: i,
-        startValue: parseInt(d[`Ink${i}_Value`], 10),
+        startValue: parseFloat(d[`Ink${i}_Value`], 10),
         startLocation: parseInt(d[`Ink${i}_Start`], 10),
-        stepPercent: parseInt(d[`Ink${i}_Step`], 10),
+        stepPercent: parseFloat(d[`Ink${i}_Step`], 10),
       };
       if (i === row) {
         dataObj.rowInk = thisInk;
@@ -89,27 +93,31 @@ const formData = () => {
   return dataObj;
 };
 
-const update = (data) => {
+const updateForGridChange = (data) => {
+  // update ui to work with new grid size
   console.log('ui.update data arg:\n', data);
-  // set ink info
+
+  [util.gridSize.width, util.gridSize.height] = data.gridSize;
+
+  // grid layout
+  gridTxt.innerHTML = `Grid Swatch Layout: ${util.gridSize.width}x${util.gridSize.height}`;
+  // rowInk, increments over rows
+  let id = `Ink${data.rowInk.id}`;
+  util.setSliderValues(id, data.gridSize[1]);
+  // colInk, increments over columns
+  id = `Ink${data.colInk.id}`;
+  util.setSliderValues(id, data.gridSize[0]);
 };
 
 export {
   form,
   title,
-  inkCheckBoxes,
-  inkRowBtns,
-  inkColumnBtns,
-  inkPageBtns,
-  inkPagesFields,
-  inkSliders,
-  sizes,
   //
   toggleInk,
   toggleInkRadio,
+  updateColor,
   updateSlider,
   setSlider,
   formData,
-  update,
-  // updateSize,
+  updateForGridChange,
 };

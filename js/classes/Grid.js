@@ -1,12 +1,11 @@
 import Swatch from './Swatch.js';
 
 class Grid {
-  constructor(gridSize) {
-    [this.rows, this.columns] = gridSize;
+  constructor(gridSize, page) {
+    [this.columns, this.rows] = gridSize;
+    this.page = page;
     this.grid = undefined;
     this.prepareGrid();
-
-    console.log(this.rows);
   }
 
   prepareGrid() {
@@ -15,21 +14,15 @@ class Grid {
     ].map((row, i) => [...Array(this.columns)].map((swatch, j) => new Swatch(i, j)));
   }
 
-  colorSwatches() {
-    this.grid.forEach((row, i) => {
-      row.forEach((swatch, j) => {
-        console.log(i, j);
+  colorSwatches(inks) {
+    console.log('Grid.colorSwatches inks arg:\n', inks);
 
-        // swatch.defineNeighbors(
-        //   this.get([i - 1], [j]), // north
-        //   this.get([i + 1], [j]), // south
-        //   this.get([i], [j + 1]), // east
-        //   this.get([i], [j - 1]), // west
-        // );
+    this.grid.forEach((row) => {
+      row.forEach((swatch) => {
+        swatch.setColorValues(inks, this.page);
       });
     });
-
-    console.log(this.grid);
+    console.log('grid', this.page, '\n', this.grid);
   }
 
   get(x, y) {
@@ -40,21 +33,6 @@ class Grid {
 
   size() {
     return this.rows * this.columns;
-  }
-
-  // iterators:
-  eachRow(func) {
-    this.grid.forEach((row) => {
-      func(row);
-    });
-  }
-
-  eachswatch(func) {
-    this.grid.forEach((row) => {
-      row.forEach((swatch) => {
-        func(swatch);
-      });
-    });
   }
 }
 

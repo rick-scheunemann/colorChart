@@ -4,7 +4,6 @@ import GridChart from './classes/GridChart.js';
 const gridChart = new GridChart(ui.formData());
 
 // event listeners
-
 ui.title.addEventListener('input', () => {
   ui.form.reportValidity();
 });

@@ -1,26 +1,19 @@
 import * as util from './utilities/ui_utilities.js';
 
-// Select DOM elements to work with
 const form = document.querySelector('form');
 const title = document.querySelector('#Title');
 const gridTxt = document.querySelector('#gridLayout');
 
 const toggleInk = (event) => {
   const { id, checked } = event.target;
-  util.setDisabledByID(`${id}_Name`, !checked);
-  util.setDisabledByID(`${id}_Value`, !checked);
-  util.setDisabledByID(`${id}_Step`, !checked);
-  util.setDisabledByID(`${id}_Start`, !checked);
-  util.setDisabledByID(`Row_${id}`, !checked);
-  util.setDisabledByID(`Column_${id}`, !checked);
-  util.setDisabledByID(`Page_${id}`, !checked);
-
+  util.setInkDisabled(id.slice(3, 4), !checked);
   util.updatePreviewColor();
 };
 
 const toggleInkRadio = (event) => {
   console.log('ui.toggleInkRadio event arg', event);
   util.selectThisRadio(event.target);
+  util.updateStaticInks();
 };
 
 const updateColor = (event) => {
@@ -35,7 +28,7 @@ const updateColor = (event) => {
 const updateSlider = (event) => {
   console.log('ui.updateSlider event arg', event);
   const pageCount = event.target.value;
-  const id = event.target.name.slice(0, 4);
+  const id = event.target.name.slice(3, 4);
   util.setSliderValues(id, pageCount);
 };
 
@@ -102,11 +95,11 @@ const updateForGridChange = (data) => {
   // grid layout
   gridTxt.innerHTML = `Grid Swatch Layout: ${util.gridSize.width}x${util.gridSize.height}`;
   // rowInk, increments over rows
-  let id = `Ink${data.rowInk.id}`;
-  util.setSliderValues(id, data.gridSize[1]);
+  // --let id = `Ink${data.rowInk.id}`;
+  util.setSliderValues(data.rowInk.id, data.gridSize[1]);
   // colInk, increments over columns
-  id = `Ink${data.colInk.id}`;
-  util.setSliderValues(id, data.gridSize[0]);
+  // --id = `Ink${data.colInk.id}`;
+  util.setSliderValues(data.colInk.id, data.gridSize[0]);
 };
 
 export {

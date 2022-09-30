@@ -5,8 +5,40 @@ const gridSize = {
   height: 9,
 };
 
-const setDisabledByID = (id, bool) => {
-  document.querySelector(`#${id}`).disabled = bool;
+const getElements = (i) => ({
+  Checkbox: document.querySelector(`#Ink${i}`),
+  Name: document.querySelector(`#Ink${i}_Name`),
+  Value: document.querySelector(`#Ink${i}_Value`),
+  Column: document.querySelector(`#Column_Ink${i}`),
+  Row: document.querySelector(`#Row_Ink${i}`),
+  Page: document.querySelector(`#Page_Ink${i}`),
+  Step: document.querySelector(`#Ink${i}_Step`),
+  Down: document.querySelector(`#Ink${i}_Down`),
+  Start: document.querySelector(`#Ink${i}_Start`),
+  Up: document.querySelector(`#Ink${i}_Up`),
+  PgInput: document.querySelector(`#Ink${i}_PgInput`),
+  Pages: document.querySelector(`#Ink${i}_Pages`),
+});
+
+const inkUI = {
+  1: getElements(1),
+  2: getElements(2),
+  3: getElements(3),
+  4: getElements(4),
+  5: getElements(5),
+  6: getElements(6),
+};
+
+const previewRect = document.querySelector('#rectangle');
+
+const setInkDisabled = (id, bool) => {
+  inkUI[id].Name.disabled = bool;
+  inkUI[id].Value.disabled = bool;
+  inkUI[id].Step.disabled = bool;
+  inkUI[id].Start.disabled = bool;
+  inkUI[id].Row.disabled = bool;
+  inkUI[id].Column.disabled = bool;
+  inkUI[id].Page.disabled = bool;
 };
 
 const cmykToRgb = (vals) => {
@@ -21,36 +53,42 @@ const cmykToRgb = (vals) => {
 };
 
 const updatePreviewColor = () => {
-  const rect = document.querySelector('#rectangle');
   const cmyk = ['Cyan', 'Magenta', 'Yellow', 'Black'];
   const vals = {};
   let i; let name;
   for (i = 1; i < 7; i += 1) {
-    if (document.querySelector(`#Ink${i}`).checked) {
-      name = document.querySelector(`#Ink${i}_Name`).value;
+    // if (document.querySelector(`#Ink${i}`).checked) {
+    if (inkUI[i].Checkbox.checked) {
+      // name = document.querySelector(`#Ink${i}_Name`).value;
+      name = inkUI[i].Name.value;
       if (!cmyk.includes(name)) {
-        rect.style.setProperty('background', 'none');
+        previewRect.style.setProperty('background', 'none');
         return;
       }
-      vals[name] = parseInt(document.querySelector(`#Ink${i}_Value`).value, 10);
+      // vals[name] = parseInt(document.querySelector(`#Ink${i}_Value`).value, 10);
+      vals[name] = parseInt(inkUI[i].Value.value, 10);
     }
   }
-  rect.style.setProperty('background', cmykToRgb(vals));
+  previewRect.style.setProperty('background', cmykToRgb(vals));
 };
 
 const setSliderValues = (id, steps) => {
   console.log('setSliderValues:', id, steps);
-  const el = document.querySelector(`#${id}_Start`);
-  const curSliderValue = el.value;
+  // const el = document.querySelector(`#${id}_Start`);
+  const curSliderValue = inkUI[id].Start.value;
   if (curSliderValue >= steps) {
-    el.value = steps - 1;
-    el.max = steps - 1;
-    document.querySelector(`#${id}_Down`).innerHTML = el.value;
-    document.querySelector(`#${id}_Up`).innerHTML = '0';
+    inkUI[id].Start.value = steps - 1;
+    inkUI[id].Start.max = steps - 1;
+    // document.querySelector(`#${id}_Down`).innerHTML = inkUI[id].Start.value;
+    inkUI[id].Down.innerHTML = inkUI[id].Start.value;
+    // document.querySelector(`#${id}_Up`).innerHTML = '0';
+    inkUI[id].Up.innerHTML = '0';
   } else {
-    el.max = steps - 1;
-    document.querySelector(`#${id}_Down`).innerHTML = curSliderValue;
-    document.querySelector(`#${id}_Up`).innerHTML = el.max - curSliderValue;
+    inkUI[id].Start.max = steps - 1;
+    // document.querySelector(`#${id}_Down`).innerHTML = curSliderValue;
+    inkUI[id].Down.innerHTML = curSliderValue;
+    // document.querySelector(`#${id}_Up`).innerHTML = inkUI[id].Start.max - curSliderValue;
+    inkUI[id].Up.innerHTML = inkUI[id].Start.max - curSliderValue;
   }
 };
 
@@ -58,25 +96,28 @@ const setSliderValues = (id, steps) => {
 // example: 'Row' ink is incremented with each new row
 const radioTypes = ['Row', 'Column', 'Page'];
 
-const shiftCurrentRadio = (type, value) => {
-  const newEl = document.querySelector(`#${type}_Ink${value}`);
-  newEl.checked = true;
+const shiftCurrentRadio = (type, id) => {
+  // const newEl = document.querySelector(`#${type}_Ink${id}`);
+  inkUI[id][type].checked = true;
   if (type === 'Page') {
     document.querySelector('.show').className = 'hide';
-    document.querySelector(`#Ink${value}_PgInput`).className = 'show';
+    // document.querySelector(`#Ink${id}_PgInput`).className = 'show';
+    inkUI[id].PgInput.className = 'show';
   }
 };
 
 const setFirstAvailable = (el) => {
   const type = el.name;
   const toExclude = radioTypes.filter((t) => t !== type);
-  const id = `Ink${el.value}`;
+  // const id = `Ink${el.value}`;
   let i;
   for (i = 1; i < 7; i += 1) {
-    if (!document.querySelector(`#${toExclude[0]}_Ink${i}`).checked
-      && !document.querySelector(`#${toExclude[1]}_Ink${i}`).checked) {
+    // if (!document.querySelector(`#${toExclude[0]}_Ink${i}`).checked
+    //   && !document.querySelector(`#${toExclude[1]}_Ink${i}`).checked) {
+    if (!inkUI[i][toExclude[0]].checked && !inkUI[i][toExclude[1]].checked) {
       shiftCurrentRadio(type, i);
-      setSliderValues(`Ink${i}`, parseInt(document.querySelector(`#${id}_Start`).max, 10) + 1);
+      // setSliderValues(i, parseInt(document.querySelector(`#${id}_Start`).max, 10) + 1);
+      setSliderValues(i, parseInt(inkUI[el.value].Start.max, 10) + 1);
       break;
     }
   }
@@ -87,54 +128,58 @@ const setFirstAvailable = (el) => {
 const selectThisRadio = (el) => {
   const { name, value } = el;
   if (name === 'Column') { // value increments over columns (width)
-    const row = document.querySelector(`#Row_Ink${value}`);
-    const pg = document.querySelector(`#Page_Ink${value}`);
-    if (row.checked) {
-      setFirstAvailable(row);
+    // const row = document.querySelector(`#Row_Ink${value}`);
+    // const row = inkUI[value].Row;
+    // const pg = document.querySelector(`#Page_Ink${value}`);
+    // const pg = inkUI[value].Page;
+    if (inkUI[value].Row.checked) {
+      setFirstAvailable(inkUI[value].Row);
     }
-    if (pg.checked) {
-      setFirstAvailable(pg);
+    if (inkUI[value].Page.checked) {
+      setFirstAvailable(inkUI[value].Page);
     }
-    setSliderValues(`Ink${value}`, gridSize.width);
+    setSliderValues(value, gridSize.width);
   } else if (name === 'Row') { // value increments over rows (height)
-    const col = document.querySelector(`#Column_Ink${value}`);
-    const pg = document.querySelector(`#Page_Ink${value}`);
-    if (col.checked) {
-      setFirstAvailable(col);
+    // const col = document.querySelector(`#Column_Ink${value}`);
+    // const pg = document.querySelector(`#Page_Ink${value}`);
+    if (inkUI[value].Column.checked) {
+      setFirstAvailable(inkUI[value].Column);
     }
-    if (pg.checked) {
-      setFirstAvailable(pg);
+    if (inkUI[value].Page.checked) {
+      setFirstAvailable(inkUI[value].Page);
     }
-    setSliderValues(`Ink${value}`, gridSize.height);
+    setSliderValues(value, gridSize.height);
   } else if (name === 'Page') {
-    const col = document.querySelector(`#Column_Ink${value}`);
-    const row = document.querySelector(`#Row_Ink${value}`);
-    if (col.checked) {
-      setFirstAvailable(col);
+    // const col = document.querySelector(`#Column_Ink${value}`);
+    // const row = document.querySelector(`#Row_Ink${value}`);
+    if (inkUI[value].Column.checked) {
+      setFirstAvailable(inkUI[value].Column);
     }
-    if (row.checked) {
-      setFirstAvailable(row);
+    if (inkUI[value].Row.checked) {
+      setFirstAvailable(inkUI[value].Row);
     }
     document.querySelector('.show').className = 'hide';
-    document.querySelector(`#Ink${value}_PgInput`).className = 'show';
-    setSliderValues(`Ink${value}`, document.querySelector(`#Ink${value}_Pages`).value);
+    // document.querySelector(`#Ink${value}_PgInput`).className = 'show';
+    inkUI[value].PgInput.className = 'show';
+    // setSliderValues(value, document.querySelector(`#Ink${value}_Pages`).value);
+    setSliderValues(value, inkUI[value].Pages.value);
   }
 };
 
-const setRadioDisabledByID = (id, bool) => {
-  const el = document.querySelector(`#${id}`);
-  el.disabled = bool;
-  const n = el.name;
-  if (bool && el.checked) {
-    setFirstAvailable(n);
+const updateStaticInks = () => {
+  let i;
+  for (i = 1; i < 7; i += 1) {
+    if (!inkUI[i].Column.checked && !inkUI[i].Row.checked && !inkUI[i].Page.checked) {
+      setSliderValues(i, 0);
+    }
   }
 };
 
 export {
   gridSize,
-  setDisabledByID,
-  setRadioDisabledByID,
+  setInkDisabled,
   selectThisRadio,
   setSliderValues,
   updatePreviewColor,
+  updateStaticInks,
 };

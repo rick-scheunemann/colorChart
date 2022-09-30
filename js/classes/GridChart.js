@@ -7,11 +7,15 @@ class GridChart {
 
   #topLabel;
 
+  #pageLabel;
+
   #inkTxt;
 
   #margin = 0.5; // page margins
 
   #minPadding = 0.5;
+
+  #swatchWidth;
 
   #spacing = 0.375; // space between swatches
 
@@ -47,6 +51,7 @@ class GridChart {
   updateSize(data) {
     console.log('GridChart.updateSize data arg:\n', data);
     this.#gridSize = this.calcGridSize(data.pgWidth, data.pgHeight, data.swatchWidth);
+    this.#swatchWidth = data.swatchWidth;
 
     console.log('grid updated to', this.#gridSize);
 
@@ -83,7 +88,7 @@ class GridChart {
         vStep: 0,
         pgStep: 0,
       });
-      inkTextArr.unshift(data.backAll);
+      inkTextArr.unshift(`${data.backAll}: 100%`);
     }
 
     if (data.rowInk) {
@@ -95,7 +100,7 @@ class GridChart {
         vStep: 0,
         pgStep: 0,
       });
-      this.#leftLabel = data.rowInk.name;
+      this.#leftLabel = `${data.rowInk.name} %`;
     }
     if (data.colInk) {
       this.#inkData.push({
@@ -106,21 +111,7 @@ class GridChart {
         vStep: data.colInk.stepPercent,
         pgStep: 0,
       });
-      this.#topLabel = data.colInk.name;
-    }
-
-    let i;
-    for (i = 0; i < data.staticInks.length; i += 1) {
-      this.#inkData.push({
-        name: data.staticInks[i].name,
-        order: data.staticInks[i].id,
-        value:
-        data.staticInks[i].startValue,
-        hStep: 0,
-        vStep: 0,
-        pgStep: 0,
-      });
-      inkTextArr.unshift(data.staticInks[i].name);
+      this.#topLabel = `${data.colInk.name} %`;
     }
     if (data.pageInk) {
       this.#inkData.push({
@@ -132,10 +123,24 @@ class GridChart {
         vStep: 0,
         pgStep: data.pageInk.stepPercent,
       });
-      inkTextArr.unshift(data.pageInk.name); // page ink always 1st in text list
+      this.#pageLabel = data.pageInk.name;
     }
-    this.#inkData.sort((a, b) => a.order - b.order);
+
+    let i;
+    for (i = 0; i < data.staticInks.length; i += 1) {
+      this.#inkData.push({
+        name: data.staticInks[i].name,
+        order: data.staticInks[i].id,
+        value: data.staticInks[i].startValue,
+        hStep: 0,
+        vStep: 0,
+        pgStep: 0,
+      });
+      inkTextArr.unshift(`${data.staticInks[i].name}: ${data.staticInks[i].startValue}%`);
+    }
     this.#inkTxt = inkTextArr.join(' | ');
+
+    this.#inkData.sort((a, b) => a.order - b.order);
   }
 }
 

@@ -10,6 +10,7 @@
     <link rel="SHORTCUT ICON" href="./favicon.svg" type="image/x-icon">
     <meta name="keywords" content="Color Chart">
     <link rel="stylesheet" type="text/css" href="./index.css" />
+    <meta http-equiv="Content-Security-Policy" content="frame-src http://xep.cloudformatter.com/" />
 </head>
 
 <body>
@@ -20,7 +21,6 @@
     <main>
         <form id="mainForm">
             <fieldset>
-                <!-- <legend>Options</legend> -->
                 <div class="title">
                     <label for="Title">Ink Name:</label>
                     <input type="text" id="Title" name="Title" required minlength="1" maxlength="64" size="24" placeholder="Name of Color" value="Custom Color"/>
@@ -44,14 +44,15 @@
                         <input type="number" id="SwatchWidth" class="size five" name="SwatchWidth" min=".25" max="2.5" value="0.625" step=".005"/>"
                     </span>
                 </div>
-                <div class="page">
-                    <span id="gridLayout" class="indentSm">
-                        Grid Swatch Layout: 6x9
-                    </span><span>
-                        <input type="checkbox" id="BackAll" name="BackAll" checked/>
-                        <label for="BackAll_Name">Back all using Ink:</label>
-                        <input type="text" id="BackAll_Name" name="BackAll_Name" maxlength="24" value="White">
+                <div class="page alignCenter">
+                    <span id="gridLayout">
+                        Grid Swatch Layout: 7x9
                     </span>
+                    <!-- <span>
+                        <input type="checkbox" id="BackAll" name="BackAll" checked/>
+                        <label for="BackAll_Name">Back All With Ink:</label>
+                        <input type="text" id="BackAll_Name" name="BackAll_Name" maxlength="24" value="White">
+                    </span> -->
                 </div>
             </fieldset>
 
@@ -140,7 +141,7 @@
                             <label for="Ink3_Start">&rarr;</label>
                             </span><span id="Ink3_PgInput" class="show">
                                 <label for="Ink3_Pages">Pages:</label>
-                                <input type="number" id="Ink3_Pages" class="inkPages two" name="Ink3_Pages" min="1" max="8" step="1" value="3"/>
+                                <input type="number" id="Ink3_Pages" class="inkPages two" name="Ink3_Pages" min="1" max="5" step="1" value="3"/>
                             </span>
                         </div>
                     </div><div id="4" class="ink">
@@ -171,7 +172,9 @@
                                 <input type="number" id="Ink4_Pages" class="inkPages two" name="Ink4_Pages" min="1" max="8" step="1" value="3"/>
                             </span>
                         </div>
-                    </div><div id="5" class="ink">
+                    </div>
+                    <!-- 5th & 6th channels:
+                    <div id="5" class="ink">
                         <input type="checkbox" id="Ink5" class="inkCheckBox" name="Ink5">
                         <label for="Ink5_Name">Ink 5:</label>
                         <input type="text" id="Ink5_Name" name="Ink5_Name" class="inkName" maxlength="24" value="Orange" disabled/>
@@ -227,26 +230,44 @@
                                 <input type="number" id="Ink6_Pages" class="inkPages two" name="Ink6_Pages" min="1" max="8" step="1" value="3"/>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
             </fieldset>
 
             <br />
 
-            <div class="alignRight">
-                <button id="btn_preview">
-                    Preview Charts
-                </button>
+            <div class="alignCenter">
                 <button type="submit" id="btn_generate">
                     Generate Charts
                 </button>
             </div>
         </form>
+
+        <hr />
+
+        <div id="output" class="hide">
+            <div id="output-button-group">
+                <button id="btn_save_multi" class="output-button">
+                    Download Multi-Page PDF
+                </button>
+                <button id="btn_save" class="output-button">
+                    Download All as Single Page
+                </button>
+            </div>
+            <div id="output-preview">
+                <div id="svg-preview"></div>
+            </div>
+        </div>
+
+        <!-- browsers will not display svg for print correctly -->
+        <!-- so we hide it, and only use to send for rendering to pdf -->
+        <div id="print-content"></div>
+        <!-- <div id="print-content" class="toPrint"></div> -->
     </main>
 
-    <pre id="log">
-    </pre>
-
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script type="module" src="./js/main.js"></script>
+    <script src="./js/plug-ins/css-to-pdf-master/js/xepOnline.jqPlugin.js"></script>
+    <!-- <script src="https://github.com/Xportability/css-to-pdf/blob/master/js/xepOnline.jqPlugin.js"></script> -->
 </body>
 
 </html>

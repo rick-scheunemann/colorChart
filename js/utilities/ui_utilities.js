@@ -42,6 +42,7 @@ const setInkDisabled = (id, bool) => {
 };
 
 const cmykToRgb = (vals) => {
+  console.log(vals);
   const c = vals.Cyan ? vals.Cyan * 0.01 : 0;
   const m = vals.Magenta ? vals.Magenta * 0.01 : 0;
   const y = vals.Yellow ? vals.Yellow * 0.01 : 0;
@@ -57,15 +58,12 @@ const updatePreviewColor = () => {
   const vals = {};
   let i; let name;
   for (i = 1; i < 7; i += 1) {
-    // if (document.querySelector(`#Ink${i}`).checked) {
     if (inkUI[i].Checkbox.checked) {
-      // name = document.querySelector(`#Ink${i}_Name`).value;
       name = inkUI[i].Name.value;
       if (!cmyk.includes(name)) {
         previewRect.style.setProperty('background', 'none');
         return;
       }
-      // vals[name] = parseInt(document.querySelector(`#Ink${i}_Value`).value, 10);
       vals[name] = parseInt(inkUI[i].Value.value, 10);
     }
   }
@@ -74,20 +72,15 @@ const updatePreviewColor = () => {
 
 const setSliderValues = (id, steps) => {
   console.log('setSliderValues:', id, steps);
-  // const el = document.querySelector(`#${id}_Start`);
   const curSliderValue = inkUI[id].Start.value;
   if (curSliderValue >= steps) {
     inkUI[id].Start.value = steps - 1;
     inkUI[id].Start.max = steps - 1;
-    // document.querySelector(`#${id}_Down`).innerHTML = inkUI[id].Start.value;
     inkUI[id].Down.innerHTML = inkUI[id].Start.value;
-    // document.querySelector(`#${id}_Up`).innerHTML = '0';
     inkUI[id].Up.innerHTML = '0';
   } else {
     inkUI[id].Start.max = steps - 1;
-    // document.querySelector(`#${id}_Down`).innerHTML = curSliderValue;
     inkUI[id].Down.innerHTML = curSliderValue;
-    // document.querySelector(`#${id}_Up`).innerHTML = inkUI[id].Start.max - curSliderValue;
     inkUI[id].Up.innerHTML = inkUI[id].Start.max - curSliderValue;
   }
 };
@@ -97,11 +90,9 @@ const setSliderValues = (id, steps) => {
 const radioTypes = ['Row', 'Column', 'Page'];
 
 const shiftCurrentRadio = (type, id) => {
-  // const newEl = document.querySelector(`#${type}_Ink${id}`);
   inkUI[id][type].checked = true;
   if (type === 'Page') {
     document.querySelector('.show').className = 'hide';
-    // document.querySelector(`#Ink${id}_PgInput`).className = 'show';
     inkUI[id].PgInput.className = 'show';
   }
 };
@@ -109,14 +100,10 @@ const shiftCurrentRadio = (type, id) => {
 const setFirstAvailable = (el) => {
   const type = el.name;
   const toExclude = radioTypes.filter((t) => t !== type);
-  // const id = `Ink${el.value}`;
   let i;
-  for (i = 1; i < 7; i += 1) {
-    // if (!document.querySelector(`#${toExclude[0]}_Ink${i}`).checked
-    //   && !document.querySelector(`#${toExclude[1]}_Ink${i}`).checked) {
+  for (i = 1; i < 5; i += 1) {
     if (!inkUI[i][toExclude[0]].checked && !inkUI[i][toExclude[1]].checked) {
       shiftCurrentRadio(type, i);
-      // setSliderValues(i, parseInt(document.querySelector(`#${id}_Start`).max, 10) + 1);
       setSliderValues(i, parseInt(inkUI[el.value].Start.max, 10) + 1);
       break;
     }
@@ -128,10 +115,6 @@ const setFirstAvailable = (el) => {
 const selectThisRadio = (el) => {
   const { name, value } = el;
   if (name === 'Column') { // value increments over columns (width)
-    // const row = document.querySelector(`#Row_Ink${value}`);
-    // const row = inkUI[value].Row;
-    // const pg = document.querySelector(`#Page_Ink${value}`);
-    // const pg = inkUI[value].Page;
     if (inkUI[value].Row.checked) {
       setFirstAvailable(inkUI[value].Row);
     }
@@ -140,8 +123,6 @@ const selectThisRadio = (el) => {
     }
     setSliderValues(value, gridSize.width);
   } else if (name === 'Row') { // value increments over rows (height)
-    // const col = document.querySelector(`#Column_Ink${value}`);
-    // const pg = document.querySelector(`#Page_Ink${value}`);
     if (inkUI[value].Column.checked) {
       setFirstAvailable(inkUI[value].Column);
     }
@@ -150,8 +131,6 @@ const selectThisRadio = (el) => {
     }
     setSliderValues(value, gridSize.height);
   } else if (name === 'Page') {
-    // const col = document.querySelector(`#Column_Ink${value}`);
-    // const row = document.querySelector(`#Row_Ink${value}`);
     if (inkUI[value].Column.checked) {
       setFirstAvailable(inkUI[value].Column);
     }
@@ -159,16 +138,14 @@ const selectThisRadio = (el) => {
       setFirstAvailable(inkUI[value].Row);
     }
     document.querySelector('.show').className = 'hide';
-    // document.querySelector(`#Ink${value}_PgInput`).className = 'show';
     inkUI[value].PgInput.className = 'show';
-    // setSliderValues(value, document.querySelector(`#Ink${value}_Pages`).value);
     setSliderValues(value, inkUI[value].Pages.value);
   }
 };
 
 const updateStaticInks = () => {
   let i;
-  for (i = 1; i < 7; i += 1) {
+  for (i = 1; i < 5; i += 1) {
     if (!inkUI[i].Column.checked && !inkUI[i].Row.checked && !inkUI[i].Page.checked) {
       setSliderValues(i, 0);
     }
@@ -177,6 +154,7 @@ const updateStaticInks = () => {
 
 export {
   gridSize,
+  cmykToRgb,
   setInkDisabled,
   selectThisRadio,
   setSliderValues,

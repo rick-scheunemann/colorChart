@@ -3,6 +3,9 @@ import * as util from './utilities/ui_utilities.js';
 const form = document.querySelector('form');
 const title = document.querySelector('#Title');
 const gridTxt = document.querySelector('#gridLayout');
+const output = document.querySelector('#output');
+const preview = document.querySelector('#svg-preview');
+const printContent = document.querySelector('#print-content');
 
 const toggleInk = (event) => {
   const { id, checked } = event.target;
@@ -95,17 +98,42 @@ const updateForGridChange = (data) => {
   // grid layout
   gridTxt.innerHTML = `Grid Swatch Layout: ${util.gridSize.width}x${util.gridSize.height}`;
   // rowInk, increments over rows
-  // --let id = `Ink${data.rowInk.id}`;
   util.setSliderValues(data.rowInk.id, data.gridSize[1]);
   // colInk, increments over columns
-  // --id = `Ink${data.colInk.id}`;
   util.setSliderValues(data.colInk.id, data.gridSize[0]);
+};
+
+const previewChart = (data) => {
+  const previewHTML = [];
+  data.previews.forEach((p, i) => {
+    previewHTML.push(`<button id="btn_save_${i}" class="previewSave">${p}<span>&#8681;</span></button>`);
+  });
+  preview.innerHTML = previewHTML.join('');
+
+  const options = {
+    render: 'download',
+    pageWidth: `${data.pgWidth}in`,
+    pageHeight: `${data.pgHeight}in`,
+    pageMargin: `${data.margin}in`,
+  };
+
+  data.previews.forEach((p, i) => {
+    document.querySelector(`#btn_save_${i}`).addEventListener('click', () => {
+      options.filename = `${data.title}-${i + 1}`;
+      const divToPrint = `GridPage-${i}`;
+      console.log('divToPrint: ', divToPrint);
+      // eslint-disable-next-line no-undef
+      xepOnline.Formatter.Format(divToPrint, options);
+    });
+  });
+
+  printContent.innerHTML = data.toPrint;
+  output.className = 'show';
 };
 
 export {
   form,
   title,
-  //
   toggleInk,
   toggleInkRadio,
   updateColor,
@@ -113,4 +141,5 @@ export {
   setSlider,
   formData,
   updateForGridChange,
+  previewChart,
 };

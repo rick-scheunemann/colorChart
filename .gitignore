@@ -1,3 +1,6 @@
+# plug ins folder (css2pdf)
+plug-ins/
+
 # macOS hidden files
 .DS_Store
 
